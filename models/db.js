@@ -26,4 +26,16 @@ const create_connection = async () => {
   }
 };
 
-module.exports = { pool, create_connection };
+const queryDatabase = async (query, parameters) => {
+  const conn = await create_connection();
+  try {
+    console.log("Querying database...");
+    const [rows] = await conn.query(query, parameters);
+    console.log("Database query successful!");
+    return rows;
+  } finally {
+    conn.release();
+  }
+};
+
+module.exports = { pool, create_connection, queryDatabase };
