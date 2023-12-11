@@ -1,4 +1,4 @@
-const { pool, create_connection, queryDatabase } = require("./db");
+const { queryDatabase } = require("./db");
 
 const getBirthdayGreetings = async (month, day) => {
   month = month.padStart(2, "0");
