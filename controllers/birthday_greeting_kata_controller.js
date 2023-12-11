@@ -8,6 +8,7 @@ const {
   messageGeneratorV2,
   messageGeneratorV3,
   messageGeneratorV4,
+  messageGeneratorV6,
 } = require("../utils/message_generator");
 const { validateDate } = require("../utils/date_validator");
 const { currentDay, currentMonth } = require("../constants");
@@ -24,7 +25,12 @@ const birthdayGreetingCommon = async (req, res, next, messageGenerator) => {
       return res.status(404).json({ message: "NOT FOUND" });
     }
     const message = await messageGenerator(result);
-    res.status(200).json(message);
+    if (messageGenerator === messageGeneratorV6) {
+      res.set("Content-Type", "text/xml");
+      res.status(200).send(message);
+    } else {
+      res.status(200).json(message);
+    }
   } catch (err) {
     next(err);
   }
@@ -43,6 +49,9 @@ const birthdayGreeting_age = (req, res, next) => {
 };
 const birthdayGreeting_fullname = (req, res, next) => {
   return birthdayGreetingCommon(req, res, next, messageGeneratorV4);
+};
+const birthdatGreeting_xml = (req, res, next) => {
+  return birthdayGreetingCommon(req, res, next, messageGeneratorV6);
 };
 
 const birthdayGreetingMemeberAdd_mongodb = (req, res, next) => {
@@ -81,4 +90,5 @@ module.exports = {
   birthdayGreeting_fullname,
   birthdayGreetingMemeberAdd_mongodb,
   birthdayGreetingMemeber_mongodb,
+  birthdatGreeting_xml,
 };
