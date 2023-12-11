@@ -15,11 +15,7 @@ router.get("/v2", birthdayGreeting_gender);
 router.get("/v3", birthdayGreeting_age);
 router.get("/v4", birthdayGreeting_fullname);
 router.get("/v5", birthdayGreetingMemeber_mongodb);
-<<<<<<< Updated upstream
-=======
 router.get("/v6", birthdatGreeting_xml);
-router.get("/find", birthdayGreetingMemeberFind_mongodb);
->>>>>>> Stashed changes
 router.post("/add", birthdayGreetingMemeberAdd_mongodb);
 
 module.exports = router;
