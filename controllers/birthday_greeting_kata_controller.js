@@ -2,6 +2,7 @@ const {
   getBirthdayGreetings,
   addBirthdayMemberMongodb,
   findBirthdayMemberMongodb,
+  getBirthdayGreetings_mongodb,
 } = require("../models/birthday_greeting_kata_model");
 const {
   messageGenerator,
@@ -65,6 +66,24 @@ const birthdayGreetingMemeberFind_mongodb = async (req, res, next) => {
   }
 };
 
+const birthdayGreetingMemeber_mongodb = async (req, res, next) => {
+  try {
+    const month = req.query.month || currentMonth;
+    const day = req.query.day || currentDay;
+    if (!validateDate(month, day)) {
+      return res.status(400).json({ message: "Input Date is invalid" });
+    }
+    const result = await getBirthdayGreetings_mongodb(month, day);
+    if (result.length === 0) {
+      return res.status(404).json({ message: "NOT FOUND" });
+    }
+    const message = await messageGenerator(result);
+    res.status(200).json(message);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   birthdayGreeting,
   birthdayGreeting_gender,
@@ -72,4 +91,5 @@ module.exports = {
   birthdayGreeting_fullname,
   birthdayGreetingMemeberAdd_mongodb,
   birthdayGreetingMemeberFind_mongodb,
+  birthdayGreetingMemeber_mongodb,
 };
