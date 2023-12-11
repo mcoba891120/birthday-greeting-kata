@@ -1,5 +1,6 @@
 const { queryDatabase } = require("./db");
 const Member = require("./mongodb");
+const moment = require("moment-timezone");
 
 const getBirthdayGreetings = async (month, day) => {
   month = month.padStart(2, "0");
@@ -20,6 +21,9 @@ const getBirthdayGreetings = async (month, day) => {
 
 const addBirthdayMemberMongodb = async (member) => {
   try {
+    member.date_of_birth = moment
+      .tz(member.date_of_birth, "Asia/Taipei")
+      .toDate();
     const newMember = new Member(member);
     await newMember.save();
   } catch (err) {
