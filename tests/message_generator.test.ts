@@ -1,4 +1,4 @@
-const {messageGenerator,messageGeneratorV2} = require('../utils/message_generator');
+const {messageGenerator,messageGeneratorV2,messageGeneratorV3} = require('../utils/message_generator');
 const {Subject} = require('../constants');
 
 test('messageGenerator should return correct messages', async () => {
@@ -34,5 +34,28 @@ test('messageGeneratorV2 should return correct messages and promotions', async (
   ];
 
   const actual = await messageGeneratorV2(result);
+  expect(actual).toEqual(expected);
+});
+
+test('messageGeneratorV3 should return correct messages and promotions for elderly', async () => {
+  const result = [
+    { first_name: 'John', gender: 'Male', date_of_birth: '1956-06-01' },
+    { first_name: 'Jane', gender: 'Female', date_of_birth: '1990-05-01' },
+  ];
+
+  const expected = [
+    { 
+      subject: Subject, 
+      message: 'Happy birthday, dear John!', 
+      greeting_picture: '(A greeting picture here)' 
+    },
+    { 
+      subject: Subject, 
+      message: 'Happy birthday, dear Jane!', 
+      promotion_message: 'We offer special discount 50% off for the following items: Cosmetic, LV Handbags' 
+    },
+  ];
+
+  const actual = await messageGeneratorV3(result);
   expect(actual).toEqual(expected);
 });
