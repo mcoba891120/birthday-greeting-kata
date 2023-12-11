@@ -3,6 +3,7 @@ const {
   messageGenerator,
   messageGeneratorV2,
   messageGeneratorV3,
+  messageGeneratorV4,
 } = require("../utils/message_generator");
 const { validateDate } = require("../utils/date_validator");
 const { currentDay, currentMonth } = require("../constants");
@@ -36,9 +37,13 @@ const birthdayGreeting_gender = (req, res, next) => {
 const birthdayGreeting_age = (req, res, next) => {
   return birthdayGreetingCommon(req, res, next, messageGeneratorV3);
 };
+const birthdayGreeting_fullname = (req, res, next) => {
+  return birthdayGreetingCommon(req, res, next, messageGeneratorV4);
+};
 
 module.exports = {
   birthdayGreeting,
   birthdayGreeting_gender,
   birthdayGreeting_age,
+  birthdayGreeting_fullname,
 };
