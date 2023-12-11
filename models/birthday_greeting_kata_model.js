@@ -1,4 +1,5 @@
 const { queryDatabase } = require("./db");
+const Member = require("./mongodb");
 
 const getBirthdayGreetings = async (month, day) => {
   month = month.padStart(2, "0");
@@ -17,4 +18,28 @@ const getBirthdayGreetings = async (month, day) => {
   }
 };
 
-module.exports = getBirthdayGreetings;
+const addBirthdayMemberMongodb = async (member) => {
+  try {
+    const newMember = new Member(member);
+    await newMember.save();
+  } catch (err) {
+    console.error("Error during database query:", err);
+    throw err;
+  }
+};
+
+const findBirthdayMemberMongodb = async () => {
+  try {
+    const member = await Member.find();
+    console.log("coooll", member);
+    return member;
+  } catch (err) {
+    console.error("Error during database query:", err);
+    throw err;
+  }
+};
+module.exports = {
+  getBirthdayGreetings,
+  addBirthdayMemberMongodb,
+  findBirthdayMemberMongodb,
+};
