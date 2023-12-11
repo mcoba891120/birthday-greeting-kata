@@ -1,7 +1,6 @@
 const {
   getBirthdayGreetings,
   addBirthdayMemberMongodb,
-  findBirthdayMemberMongodb,
   getBirthdayGreetings_mongodb,
 } = require("../models/birthday_greeting_kata_model");
 const {
@@ -57,15 +56,6 @@ const birthdayGreetingMemeberAdd_mongodb = (req, res, next) => {
   }
 };
 
-const birthdayGreetingMemeberFind_mongodb = async (req, res, next) => {
-  try {
-    const member = await findBirthdayMemberMongodb();
-    res.status(200).json(member);
-  } catch (err) {
-    next(err);
-  }
-};
-
 const birthdayGreetingMemeber_mongodb = async (req, res, next) => {
   try {
     const month = req.query.month || currentMonth;
@@ -90,6 +80,5 @@ module.exports = {
   birthdayGreeting_age,
   birthdayGreeting_fullname,
   birthdayGreetingMemeberAdd_mongodb,
-  birthdayGreetingMemeberFind_mongodb,
   birthdayGreetingMemeber_mongodb,
 };

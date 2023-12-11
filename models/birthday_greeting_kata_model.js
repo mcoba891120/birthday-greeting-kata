@@ -32,17 +32,6 @@ const addBirthdayMemberMongodb = async (member) => {
   }
 };
 
-const findBirthdayMemberMongodb = async () => {
-  try {
-    const member = await Member.find();
-    console.log("coooll", member);
-    return member;
-  } catch (err) {
-    console.error("Error during database query:", err);
-    throw err;
-  }
-};
-
 const getBirthdayGreetings_mongodb = async (month, day) => {
   month = month.padStart(2, "0");
   day = day.padStart(2, "0");
@@ -67,6 +56,5 @@ const getBirthdayGreetings_mongodb = async (month, day) => {
 module.exports = {
   getBirthdayGreetings,
   addBirthdayMemberMongodb,
-  findBirthdayMemberMongodb,
   getBirthdayGreetings_mongodb,
 };
