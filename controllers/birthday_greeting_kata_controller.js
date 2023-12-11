@@ -1,4 +1,8 @@
-const getBirthdayGreetings = require("../models/birthday_greeting_kata_model");
+const {
+  getBirthdayGreetings,
+  addBirthdayMemberMongodb,
+  findBirthdayMemberMongodb,
+} = require("../models/birthday_greeting_kata_model");
 const {
   messageGenerator,
   messageGeneratorV2,
@@ -41,9 +45,31 @@ const birthdayGreeting_fullname = (req, res, next) => {
   return birthdayGreetingCommon(req, res, next, messageGeneratorV4);
 };
 
+const birthdayGreetingMemeberAdd_mongodb = (req, res, next) => {
+  try {
+    const member = req.body;
+    console.log(member);
+    addBirthdayMemberMongodb(member);
+    res.status(200).json({ message: "OK" });
+  } catch (err) {
+    next(err);
+  }
+};
+
+const birthdayGreetingMemeberFind_mongodb = async (req, res, next) => {
+  try {
+    const member = await findBirthdayMemberMongodb();
+    res.status(200).json(member);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   birthdayGreeting,
   birthdayGreeting_gender,
   birthdayGreeting_age,
   birthdayGreeting_fullname,
+  birthdayGreetingMemeberAdd_mongodb,
+  birthdayGreetingMemeberFind_mongodb,
 };
