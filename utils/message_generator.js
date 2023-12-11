@@ -53,4 +53,19 @@ const messageGeneratorV3 = async (result) => {
     };
   });
 };
-module.exports = { messageGenerator, messageGeneratorV2, messageGeneratorV3 };
+
+const messageGeneratorV4 = async (result) => {
+  const message = result.map((row) => {
+    return {
+      subject: Subject,
+      message: `Happy birthday, dear ${row.last_name}, ${row.first_name}!`,
+    };
+  });
+  return message;
+};
+module.exports = {
+  messageGenerator,
+  messageGeneratorV2,
+  messageGeneratorV3,
+  messageGeneratorV4,
+};
