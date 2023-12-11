@@ -2,8 +2,9 @@ const getBirthdayGreetings = require("../models/birthday_greeting_kata_model");
 const {
   messageGenerator,
   messageGeneratorV2,
+  messageGeneratorV3,
 } = require("../utils/message_generator");
-const validateDate = require("../utils/date_validator");
+const { validateDate } = require("../utils/date_validator");
 const { currentDay, currentMonth } = require("../constants");
 
 const birthdayGreetingCommon = async (req, res, next, messageGenerator) => {
@@ -32,4 +33,12 @@ const birthdayGreeting_gender = (req, res, next) => {
   return birthdayGreetingCommon(req, res, next, messageGeneratorV2);
 };
 
-module.exports = { birthdayGreeting, birthdayGreeting_gender };
+const birthdayGreeting_age = (req, res, next) => {
+  return birthdayGreetingCommon(req, res, next, messageGeneratorV3);
+};
+
+module.exports = {
+  birthdayGreeting,
+  birthdayGreeting_gender,
+  birthdayGreeting_age,
+};
