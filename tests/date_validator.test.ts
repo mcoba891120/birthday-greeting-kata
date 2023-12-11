@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 // /tests/date_validator.test.js
 const {validateDate,validateAge} = require('../utils/date_validator');
 
@@ -21,4 +23,8 @@ describe('validateAge', () => {
     const date_of_birth = '1990-05-01'; // This person would be 33 in 2023
     expect(validateAge(date_of_birth)).toBe(false);
   });
+});
+
+afterAll(() => {
+  mongoose.connection.close();
 });
