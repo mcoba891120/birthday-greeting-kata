@@ -17,16 +17,13 @@ const messageGenerator = async (result) => {
 
 const messageGeneratorV2 = async (result) => {
   const message = result.map((row) => {
-    let promotion_message;
-    if (row.gender === "Male") {
-      promotion_message = Male_promotion_message;
-    } else {
-      promotion_message = Fefale_promotion_message;
-    }
     return {
       subject: Subject,
       message: `Happy birthday, dear ${row.first_name}!`,
-      promotion_message: promotion_message,
+      romotion_message:
+        row.gender === "Male"
+          ? Male_promotion_message
+          : Fefale_promotion_message,
     };
   });
   return message;
@@ -52,8 +49,7 @@ const messageGeneratorV3 = async (result) => {
       promotion_message:
         row.gender === "Male"
           ? Male_promotion_message
-          : Female_promotion_message,
-      greeting_picture,
+          : Fefale_promotion_message,
     };
   });
 };
