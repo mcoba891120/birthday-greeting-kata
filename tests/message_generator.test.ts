@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 const {messageGenerator,messageGeneratorV2,messageGeneratorV3,messageGeneratorV4} = require('../utils/message_generator');
 const {Subject} = require('../constants');
 
@@ -73,4 +75,8 @@ test('messageGeneratorV4 should return correct messages', async () => {
 
   const actual = await messageGeneratorV4(result);
   expect(actual).toEqual(expected);
+});
+
+afterAll(() => {
+  mongoose.connection.close();
 });
