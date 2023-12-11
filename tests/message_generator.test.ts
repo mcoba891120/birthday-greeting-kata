@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const {messageGenerator,messageGeneratorV2,messageGeneratorV3,messageGeneratorV4} = require('../utils/message_generator');
+const {messageGenerator,messageGeneratorV2,messageGeneratorV3,messageGeneratorV4,messageGeneratorV6} = require('../utils/message_generator');
 const {Subject} = require('../constants');
 
 test('messageGenerator should return correct messages', async () => {
@@ -77,6 +77,30 @@ test('messageGeneratorV4 should return correct messages', async () => {
   expect(actual).toEqual(expected);
 });
 
-afterAll(() => {
-  mongoose.connection.close();
+test('messageGeneratorV6 should generate correct messages for non-empty input', async () => {
+  const result = [
+    { first_name: 'John' },
+  ];
+
+  const expectedOutput = `
+      <root>
+        <title>${Subject}</title>
+        <content>Happy birthday, dear John!</content>
+      </root>
+    `;
+
+  const output = await messageGeneratorV6(result);
+
+  expect(output).toEqual(expectedOutput);
+});
+
+
+test('messageGeneratorV6 should handle empty input', async () => {
+  const result = [];
+
+  const expectedOutput = ''; // Expected output when input is empty
+
+  const output = await messageGeneratorV6(result);
+
+  expect(output).toEqual(expectedOutput);
 });
