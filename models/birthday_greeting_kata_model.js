@@ -42,8 +42,31 @@ const findBirthdayMemberMongodb = async () => {
     throw err;
   }
 };
+
+const getBirthdayGreetings_mongodb = async (month, day) => {
+  month = month.padStart(2, "0");
+  day = day.padStart(2, "0");
+  const today = `${month}-${day}`;
+
+  try {
+    const members = await Member.find({
+      $expr: {
+        $eq: [
+          { $dateToString: { format: "%m-%d", date: "$date_of_birth" } },
+          today,
+        ],
+      },
+    });
+
+    return members;
+  } catch (err) {
+    console.error("Error during database query:", err);
+    throw err;
+  }
+};
 module.exports = {
   getBirthdayGreetings,
   addBirthdayMemberMongodb,
   findBirthdayMemberMongodb,
+  getBirthdayGreetings_mongodb,
 };
