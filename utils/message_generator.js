@@ -20,7 +20,7 @@ const messageGeneratorV2 = async (result) => {
     return {
       subject: Subject,
       message: `Happy birthday, dear ${row.first_name}!`,
-      romotion_message:
+      promotion_message:
         row.gender === "Male"
           ? Male_promotion_message
           : Fefale_promotion_message,
