@@ -9,6 +9,7 @@ var usersRouter = require("./routes/users");
 var birthdayGreetingRouter = require("./routes/birthday_greeting_kata_router");
 
 var app = express();
+const Member = require("./models/mongodb");
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
